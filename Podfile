@@ -12,7 +12,6 @@ target 'Youtube Lite' do
     # Pods for testing
   end
 
-  pod 'SwiftLint', '~> 0.18'
   pod 'Argo', '~> 4.1'
   pod 'Alamofire', '~> 4.4'
   

@@ -141,6 +141,7 @@
 				3322AA651EB49A14004C71D4 /* Resources */,
 				786A6209147C9D18FEB99677 /* [CP] Embed Pods Frameworks */,
 				D3AE2A10C3A4E824FFA2124A /* [CP] Copy Pods Resources */,
+				33DD78241EB4A2AD00363596 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -235,6 +236,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		33DD78241EB4A2AD00363596 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    (cd Youtube\\ Lite/ && swiftlint)\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		46BAC0BF590FEBA175FA0E6E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -547,6 +561,7 @@
 				3322AA861EB49A14004C71D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3322AA871EB49A14004C71D4 /* Build configuration list for PBXNativeTarget "Youtube LiteTests" */ = {
 			isa = XCConfigurationList;
@@ -555,6 +570,7 @@
 				3322AA891EB49A14004C71D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
