@@ -3,3 +3,5 @@ disabled_rules: # rule identifiers to exclude from running
   - vertical_whitespace
   - trailing_whitespace
   - legacy_constructor
+  - force_cast
+  - statement_position

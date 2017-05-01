@@ -14,5 +14,6 @@ target 'Youtube Lite' do
 
   pod 'Argo', '~> 4.1'
   pod 'Alamofire', '~> 4.4'
+  pod 'Curry', '~> 3.0'
   
 end

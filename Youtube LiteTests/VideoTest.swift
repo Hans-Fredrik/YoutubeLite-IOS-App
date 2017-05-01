@@ -1,15 +1,14 @@
 //
-//  Youtube_LiteTests.swift
-//  Youtube LiteTests
+//  VideoTest.swift
+//  Youtube Lite
 //
-//  Created by Hans Fredrik Fuglerud Brastad on 4/29/17.
+//  Created by Hans Fredrik Fuglerud Brastad on 5/1/17.
 //  Copyright © 2017 Hans Fredrik Fuglerud Brastad. All rights reserved.
 //
 
 import XCTest
-@testable import Youtube_Lite
 
-class Youtube_LiteTests: XCTestCase {
+class VideoTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -24,6 +23,7 @@ class Youtube_LiteTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
     }
     
     func testPerformanceExample() {
@@ -32,6 +32,5 @@ class Youtube_LiteTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
     
 }

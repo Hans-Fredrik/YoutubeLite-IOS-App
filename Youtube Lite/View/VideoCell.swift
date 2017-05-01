@@ -1,70 +1,57 @@
 //
-//  ViewController.swift
+//  VideoCell.swift
 //  Youtube Lite
 //
-//  Created by Hans Fredrik Fuglerud Brastad on 4/29/17.
+//  Created by Hans Fredrik Fuglerud Brastad on 4/30/17.
 //  Copyright © 2017 Hans Fredrik Fuglerud Brastad. All rights reserved.
 //
 
 import UIKit
 
-class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class VideoCell: BaseCell {
     
-    private let cellIdentifier = "cellId"
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        navigationItem.title = "Home"
-        
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        
-        collectionView?.backgroundColor = UIColor.white
-        
-        collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: cellIdentifier)
+    var video: Video? {
+        didSet {
+            titleLabel.text = video?.title
+            
+            if let videoCoverImage = video?.imageName {
+                thumbnailImageView.image = UIImage(named: videoCoverImage)
+            }
+            
+            if let profileImageName = video?.channel?.profileImageName {
+                userProfileImageView.image = UIImage(named: profileImageName)
+            }
+            
+            if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfViews {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .decimal
+                
+                let subtitleText = "\(channelName) ● \(formatter.string(for: numberOfViews)!) ● 2 years ago"
+                subtitleTextView.text = subtitleText
+            }
+            
+            // Measure title text
+            if let videoTitle = video?.title {
+                let size = CGSize(width: frame.width - 16 - 44 - 8 - 16, height: 1000)
+                let estimateRect = NSString(string: videoTitle).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
+                
+                if estimateRect.size.height > 20 {
+                    titleLabelHeightConstraint?.constant = 44
+                }else {
+                    titleLabelHeightConstraint?.constant = 20
+                }
+            }
+        }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+    func setupThumbnailImage() {
+        // At this place you should actually take the url and "fetch" the image
+        
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
-        
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        // Calculate the correct aspect ratio based on screen width
-        let height = (view.frame.width - 16 - 16) * 9 / 16
-        
-        // Adding 16 back because of margin and 68 for rest of the elements in the cell (profile pic, title and subtitle)
-        return CGSize(width: view.frame.width, height: height + 16 + 68)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-}
-
-class VideoCell: UICollectionViewCell {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
     
     let thumbnailImageView: UIImageView = {
-       let imageview = UIImageView()
+        let imageview = UIImageView()
         imageview.backgroundColor = UIColor.blue
         imageview.image = #imageLiteral(resourceName: "cover_picture")
         imageview.contentMode = .scaleAspectFill
@@ -93,6 +80,7 @@ class VideoCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Taylow Swift - Blank Space"
+        label.numberOfLines = 2
         return label
     }()
     
@@ -105,7 +93,9 @@ class VideoCell: UICollectionViewCell {
         return textView
     }()
     
-    func setupViews() {
+    var titleLabelHeightConstraint: NSLayoutConstraint?
+    
+    override func setupViews() {
         addSubview(thumbnailImageView)
         addSubview(seperatorView)
         addSubview(userProfileImageView)
@@ -116,8 +106,7 @@ class VideoCell: UICollectionViewCell {
         addConstraintsWithFormat(format: "H:|-16-[v0(44)]", views: userProfileImageView)
         
         // Vertical constraints
-        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, userProfileImageView, seperatorView)
-    
+        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-36-[v2(1)]|", views: thumbnailImageView, userProfileImageView, seperatorView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: seperatorView)
         
         // Top constraint
@@ -130,8 +119,8 @@ class VideoCell: UICollectionViewCell {
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         
         // Height constraint
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20))
-        
+        titleLabelHeightConstraint = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20)
+        addConstraint(titleLabelHeightConstraint!)
         
         // Top constraint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 4))
@@ -145,25 +134,6 @@ class VideoCell: UICollectionViewCell {
         // Height constraint
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 30))
         
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("Not been implemented")
-    }
-}
-
-extension UIView {
-    
-    func addConstraintsWithFormat(format: String, views: UIView...) {
-        var viewsDictionary = [String: UIView]()
-        
-        for(index, view) in views.enumerated() {
-            let key = "v\(index)"
-            view.translatesAutoresizingMaskIntoConstraints = false
-            viewsDictionary[key] = view
-        }
-        
-          addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
     }
     
 }
