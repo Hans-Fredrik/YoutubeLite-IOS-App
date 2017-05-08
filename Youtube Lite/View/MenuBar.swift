@@ -13,7 +13,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor(red: 230/255, green: 32/255, blue: 31/255, alpha: 1)
+        cv.backgroundColor = UIColor.youtubeRed
         cv.dataSource = self
         cv.delegate = self
         return cv
@@ -44,8 +44,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MenuCell
         
         cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
-        cell.tintColor = UIColor(red: 91/255, green: 14/255, blue: 13/255, alpha: 1)
-        
+        cell.tintColor = UIColor.youtubeBlack
         return cell
     }
     
@@ -76,7 +75,7 @@ class MenuCell: BaseCell {
             if isSelected {
                 imageView.tintColor = UIColor.white
             }else {
-                imageView.tintColor = UIColor(red: 91/255, green: 14/255, blue: 13/255, alpha: 1)
+                imageView.tintColor = UIColor.youtubeBlack
             }
         }
     }

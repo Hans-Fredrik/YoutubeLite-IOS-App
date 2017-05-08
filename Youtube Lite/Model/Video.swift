@@ -31,10 +31,5 @@ extension Video: Decodable {
             <*> json <| "duration"
             <*> json <| "channel"
     }
-    
-    static let lazyInit: Video = {
-        let channel = Channel(name: "", profileImageName: "")
-        return Video(title: "", imageName: "", numberOfViews: 0, duration: 0, channel: channel)
-    }()
-    
+        
 }

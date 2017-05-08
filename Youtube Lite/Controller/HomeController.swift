@@ -60,7 +60,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func fetchVideos() {
-        // Use alamofire and fetch the videos from the webpage (https://s3-us-west-2.amazonaws.com/youtubeassets/home.json)
+        // TODO : Use alamofire and fetch the videos from the webpage http://brastad.pro:8080/api/videos
         
     }
     

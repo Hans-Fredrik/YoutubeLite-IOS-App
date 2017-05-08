@@ -7,6 +7,8 @@
 //
 
 import XCTest
+import Argo
+@testable import Youtube_Lite
 
 class VideoTest: XCTestCase {
     
@@ -20,17 +22,54 @@ class VideoTest: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testDecodeOneVideo() {
+        let json =  getVideoJson()
+        let video: Video? = decode(json!)
         
+        XCTAssertNotNil(video)
+        XCTAssertNotNil(video?.title)
+        XCTAssertNotNil(video?.imageName)
+        XCTAssertNotNil(video?.numberOfViews)
+        XCTAssertNotNil(video?.duration)
+        XCTAssertNotNil(video?.channel)
+    }
+ 
+    func testChildObjectsIsProperlyDecoded() {
+        let json =  getVideoJson()
+        let video: Video? = decode(json!)
+        
+        XCTAssertNotNil(video)
+        XCTAssertNotNil(video?.channel)
+        XCTAssertNotNil(video?.channel?.name)
+        XCTAssertNotNil(video?.channel?.profileImageName)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testDecodeMulitpleVideos() {
+        var videos = [Video]()
+        
+        if let jsonArray = getAllVideosJson() {
+            
+            for json in jsonArray {
+                if let video: Video = decode(json) {
+                    videos.append(video)
+                }
+            }
+            
         }
+    
+        XCTAssertEqual(videos.count, 6)
+    }
+    
+    func getAllVideosJson() -> [Any]? {
+        return JsonFileReader.jsonFromFile("videos")
+    }
+    
+    private func getVideoJson() -> Any? {
+        if let json = JsonFileReader.jsonFromFile("video"){
+            return json[0]
+        }
+        
+        return nil
     }
     
 }

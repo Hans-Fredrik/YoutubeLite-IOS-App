@@ -1,15 +1,16 @@
 //
-//  Youtube_LiteTests.swift
-//  Youtube LiteTests
+//  ChannelTest.swift
+//  Youtube Lite
 //
-//  Created by Hans Fredrik Fuglerud Brastad on 4/29/17.
+//  Created by Hans Fredrik Fuglerud Brastad on 5/1/17.
 //  Copyright © 2017 Hans Fredrik Fuglerud Brastad. All rights reserved.
 //
 
 import XCTest
+import Argo
 @testable import Youtube_Lite
 
-class Youtube_LiteTests: XCTestCase {
+class ChannelTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -21,9 +22,24 @@ class Youtube_LiteTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testDecodeChannel() {
+        let channelJson = getChannelJson()
+        
+        let channel: Channel? = decode(channelJson!)
+        
+        XCTAssertNotNil(channel)
+        XCTAssertEqual(channel?.name, "Taylor Fan Forever")
+        XCTAssertEqual(channel?.profileImageName, "http://brastad.pro:8080/images/taylor_fan_forever_profile.jpg")
+    }
+    
+    
+    private func getChannelJson() -> Any? {
+        if let json = JsonFileReader.jsonFromFile("channel") {
+            return json[0]
+        }
+        
+        return nil
     }
     
     func testPerformanceExample() {
@@ -32,6 +48,5 @@ class Youtube_LiteTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
     
 }

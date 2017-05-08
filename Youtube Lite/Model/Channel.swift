@@ -26,8 +26,4 @@ extension Channel: Decodable {
             <*> json <| "profile_image_name"
     }
     
-    static let lazyInit: Channel = {
-        return Channel(name: "", profileImageName: "")
-    }()
-    
 }

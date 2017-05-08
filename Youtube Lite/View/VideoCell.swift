@@ -71,7 +71,7 @@ class VideoCell: BaseCell {
     
     let seperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 230/250, green: 230/255, blue: 230/255, alpha: 1)
+        view.backgroundColor = UIColor.youtubeLightGray
         return view
     }()
     
