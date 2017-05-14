@@ -12,6 +12,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     private let cellIdentifier = "cellId"
     
+    
+    lazy var settingsLauncher: SettingsLauncher = {
+        let launcher = SettingsLauncher()
+        launcher.homeController = self
+        return launcher
+    }()
+    
+    // To delete when going over to fetching instead:)
     var videos: [Video] = {
         var taylorChannel = Channel()
         taylorChannel.name = "Taylor Swift EVO"
@@ -29,7 +37,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         badBloodVideo.channel = taylorChannel
         badBloodVideo.numberOfViews = 1054880451
         
-        return [blankSpaceVideo, badBloodVideo]
+        var blankSpaceVideo2 = Video()
+        blankSpaceVideo2.title = "Taylor Swift - Blank Space"
+        blankSpaceVideo2.imageName = "cover_picture"
+        blankSpaceVideo2.channel = taylorChannel
+        blankSpaceVideo2.numberOfViews = 2034619822
+        
+        
+        return [blankSpaceVideo, badBloodVideo,blankSpaceVideo2]
     }()
     
     override func viewDidLoad() {
@@ -60,7 +75,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func fetchVideos() {
-        // TODO : Use alamofire and fetch the videos from the webpage http://brastad.pro:8080/api/videos
+        // TODO: Use alamofire and fetch the videos from the webpage http://brastad.pro:8080/api/videos
         
     }
     
@@ -70,10 +85,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }()
     
     private func setupMenuBar() {
+        navigationController?.hidesBarsOnSwipe = true
+        
+        let redView = UIView()
+        redView.backgroundColor = UIColor.youtubeRed
+        view.addSubview(redView)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: redView)
+        view.addConstraintsWithFormat(format: "V:|[v0(50)]|", views: redView)
+        
         view.addSubview(menuBar)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
-        view.addConstraintsWithFormat(format: "V:|[v0(50)]|", views: menuBar)
+        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: menuBar)
         
+        menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
     }
     
     private func setupNavBarButtons() {
@@ -91,8 +115,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         print("Searching for nothing")
     }
     
+    
     func handleMore() {
-        print("User asking for more")
+        self.settingsLauncher.showSettings()
+    }
+    
+    func showControllerForSetting(_ setting: Setting) {
+        let dummySettingsViewController = UIViewController()
+        
+        dummySettingsViewController.view.backgroundColor = UIColor.white
+        dummySettingsViewController.navigationItem.title = setting.name.rawValue
+        navigationController?.navigationBar.tintColor = UIColor.white
+        
+        self.navigationController?.pushViewController(dummySettingsViewController, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -100,7 +135,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! VideoCell
         cell.video = videos[indexPath.item]
         
@@ -108,7 +142,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         // Calculate the correct aspect ratio based on screen width
         let height = (view.frame.width - 16 - 16) * 9 / 16
         

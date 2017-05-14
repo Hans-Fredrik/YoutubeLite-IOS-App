@@ -11,6 +11,12 @@
 		3322AA6D1EB49A14004C71D4 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322AA6C1EB49A14004C71D4 /* HomeController.swift */; };
 		3322AA701EB49A14004C71D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3322AA6E1EB49A14004C71D4 /* Main.storyboard */; };
 		3322AA751EB49A14004C71D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3322AA731EB49A14004C71D4 /* LaunchScreen.storyboard */; };
+		3325B1421EC0DBED00EFB4B8 /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3325B1411EC0DBED00EFB4B8 /* VideoService.swift */; };
+		3325B1451EC0E27300EFB4B8 /* VideoServiceIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3325B1441EC0E27300EFB4B8 /* VideoServiceIntegrationTest.swift */; };
+		332F9BC01EC594A000F373E3 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332F9BBF1EC594A000F373E3 /* SettingsLauncher.swift */; };
+		332F9BC21EC5D22700F373E3 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332F9BC11EC5D22700F373E3 /* SettingCell.swift */; };
+		332F9BC61EC6195000F373E3 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 332F9BC51EC6195000F373E3 /* SettingCell.xib */; };
+		332F9BC81EC741CE00F373E3 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332F9BC71EC741CE00F373E3 /* Setting.swift */; };
 		334CDDCD1EB62FFA00F3AEAA /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334CDDCC1EB62FFA00F3AEAA /* VideoCell.swift */; };
 		334CDDCF1EB6301700F3AEAA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334CDDCE1EB6301700F3AEAA /* Extensions.swift */; };
 		334CDDD21EB6351E00F3AEAA /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334CDDD11EB6351E00F3AEAA /* MenuBar.swift */; };
@@ -48,6 +54,12 @@
 		3322AA761EB49A14004C71D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3322AA7B1EB49A14004C71D4 /* Youtube LiteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Youtube LiteTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3322AA811EB49A14004C71D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3325B1411EC0DBED00EFB4B8 /* VideoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoService.swift; sourceTree = "<group>"; };
+		3325B1441EC0E27300EFB4B8 /* VideoServiceIntegrationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoServiceIntegrationTest.swift; sourceTree = "<group>"; };
+		332F9BBF1EC594A000F373E3 /* SettingsLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
+		332F9BC11EC5D22700F373E3 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		332F9BC51EC6195000F373E3 /* SettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
+		332F9BC71EC741CE00F373E3 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		334CDDCC1EB62FFA00F3AEAA /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		334CDDCE1EB6301700F3AEAA /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		334CDDD11EB6351E00F3AEAA /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -111,6 +123,7 @@
 		3322AA691EB49A14004C71D4 /* Youtube Lite */ = {
 			isa = PBXGroup;
 			children = (
+				3325B1401EC0DAE400EFB4B8 /* Service */,
 				334CDDD01EB6316D00F3AEAA /* Controller */,
 				334CDDCA1EB629DA00F3AEAA /* Helpers */,
 				334CDDD71EB70DE100F3AEAA /* Model */,
@@ -132,8 +145,17 @@
 				334CDDDF1EB7626900F3AEAA /* VideoTest.swift */,
 				33619FF41EB7976000EA7D6D /* JsonFileReader.swift */,
 				33619FFC1EB7993300EA7D6D /* ChannelTest.swift */,
+				3325B1441EC0E27300EFB4B8 /* VideoServiceIntegrationTest.swift */,
 			);
 			path = "Youtube LiteTests";
+			sourceTree = "<group>";
+		};
+		3325B1401EC0DAE400EFB4B8 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3325B1411EC0DBED00EFB4B8 /* VideoService.swift */,
+			);
+			name = Service;
 			sourceTree = "<group>";
 		};
 		334CDDCA1EB629DA00F3AEAA /* Helpers */ = {
@@ -150,6 +172,8 @@
 				334CDDD31EB6513200F3AEAA /* BaseCell.swift */,
 				334CDDD11EB6351E00F3AEAA /* MenuBar.swift */,
 				334CDDCC1EB62FFA00F3AEAA /* VideoCell.swift */,
+				332F9BC11EC5D22700F373E3 /* SettingCell.swift */,
+				332F9BC51EC6195000F373E3 /* SettingCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -158,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				3322AA6C1EB49A14004C71D4 /* HomeController.swift */,
+				332F9BBF1EC594A000F373E3 /* SettingsLauncher.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -167,6 +192,7 @@
 			children = (
 				334CDDDA1EB7170700F3AEAA /* Channel.swift */,
 				334CDDD81EB70DED00F3AEAA /* Video.swift */,
+				332F9BC71EC741CE00F373E3 /* Setting.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -294,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3322AA751EB49A14004C71D4 /* LaunchScreen.storyboard in Resources */,
+				332F9BC61EC6195000F373E3 /* SettingCell.xib in Resources */,
 				334CDDD61EB659A300F3AEAA /* Assets.xcassets in Resources */,
 				3322AA701EB49A14004C71D4 /* Main.storyboard in Resources */,
 			);
@@ -423,10 +450,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3322AA6D1EB49A14004C71D4 /* HomeController.swift in Sources */,
+				3325B1421EC0DBED00EFB4B8 /* VideoService.swift in Sources */,
+				332F9BC81EC741CE00F373E3 /* Setting.swift in Sources */,
 				334CDDDB1EB7170700F3AEAA /* Channel.swift in Sources */,
 				3322AA6B1EB49A14004C71D4 /* AppDelegate.swift in Sources */,
+				332F9BC21EC5D22700F373E3 /* SettingCell.swift in Sources */,
 				334CDDCD1EB62FFA00F3AEAA /* VideoCell.swift in Sources */,
 				334CDDCF1EB6301700F3AEAA /* Extensions.swift in Sources */,
+				332F9BC01EC594A000F373E3 /* SettingsLauncher.swift in Sources */,
 				334CDDD41EB6513200F3AEAA /* BaseCell.swift in Sources */,
 				334CDDD91EB70DED00F3AEAA /* Video.swift in Sources */,
 				334CDDD21EB6351E00F3AEAA /* MenuBar.swift in Sources */,
@@ -438,6 +469,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33619FFD1EB7993300EA7D6D /* ChannelTest.swift in Sources */,
+				3325B1451EC0E27300EFB4B8 /* VideoServiceIntegrationTest.swift in Sources */,
 				33619FF51EB7976000EA7D6D /* JsonFileReader.swift in Sources */,
 				334CDDE01EB7626900F3AEAA /* VideoTest.swift in Sources */,
 			);

@@ -20,6 +20,8 @@ class BaseCell: UICollectionViewCell {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("Not been implemented")
+        super.init(coder: aDecoder)
+        setupViews()
+        //fatalError("Not been implemented")
     }
 }
