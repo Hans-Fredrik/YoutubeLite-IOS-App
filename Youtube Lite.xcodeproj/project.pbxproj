@@ -17,6 +17,7 @@
 		332F9BC21EC5D22700F373E3 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332F9BC11EC5D22700F373E3 /* SettingCell.swift */; };
 		332F9BC61EC6195000F373E3 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 332F9BC51EC6195000F373E3 /* SettingCell.xib */; };
 		332F9BC81EC741CE00F373E3 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332F9BC71EC741CE00F373E3 /* Setting.swift */; };
+		332F9BCA1EC9DC6900F373E3 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332F9BC91EC9DC6900F373E3 /* FeedCell.swift */; };
 		334CDDCD1EB62FFA00F3AEAA /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334CDDCC1EB62FFA00F3AEAA /* VideoCell.swift */; };
 		334CDDCF1EB6301700F3AEAA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334CDDCE1EB6301700F3AEAA /* Extensions.swift */; };
 		334CDDD21EB6351E00F3AEAA /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334CDDD11EB6351E00F3AEAA /* MenuBar.swift */; };
@@ -60,6 +61,7 @@
 		332F9BC11EC5D22700F373E3 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		332F9BC51EC6195000F373E3 /* SettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		332F9BC71EC741CE00F373E3 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		332F9BC91EC9DC6900F373E3 /* FeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		334CDDCC1EB62FFA00F3AEAA /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		334CDDCE1EB6301700F3AEAA /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		334CDDD11EB6351E00F3AEAA /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				334CDDCC1EB62FFA00F3AEAA /* VideoCell.swift */,
 				332F9BC11EC5D22700F373E3 /* SettingCell.swift */,
 				332F9BC51EC6195000F373E3 /* SettingCell.xib */,
+				332F9BC91EC9DC6900F373E3 /* FeedCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3322AA6D1EB49A14004C71D4 /* HomeController.swift in Sources */,
+				332F9BCA1EC9DC6900F373E3 /* FeedCell.swift in Sources */,
 				3325B1421EC0DBED00EFB4B8 /* VideoService.swift in Sources */,
 				332F9BC81EC741CE00F373E3 /* Setting.swift in Sources */,
 				334CDDDB1EB7170700F3AEAA /* Channel.swift in Sources */,

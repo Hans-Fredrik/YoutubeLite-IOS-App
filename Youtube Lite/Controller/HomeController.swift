@@ -10,6 +10,7 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    let titles = ["Home", "Trending", "Subscriptions", "Account"]
     private let cellIdentifier = "cellId"
     
     
@@ -19,68 +20,53 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return launcher
     }()
     
-    // To delete when going over to fetching instead:)
-    var videos: [Video] = {
-        var taylorChannel = Channel()
-        taylorChannel.name = "Taylor Swift EVO"
-        taylorChannel.profileImageName = "profile_picture"
-        
-        var blankSpaceVideo = Video()
-        blankSpaceVideo.title = "Taylor Swift - Blank Space"
-        blankSpaceVideo.imageName = "cover_picture"
-        blankSpaceVideo.channel = taylorChannel
-        blankSpaceVideo.numberOfViews = 2034619822
-        
-        var badBloodVideo = Video()
-        badBloodVideo.title = "Taylor Swift - Bad Blood Featuring Kendrick Lamar"
-        badBloodVideo.imageName = "cover_badblood"
-        badBloodVideo.channel = taylorChannel
-        badBloodVideo.numberOfViews = 1054880451
-        
-        var blankSpaceVideo2 = Video()
-        blankSpaceVideo2.title = "Taylor Swift - Blank Space"
-        blankSpaceVideo2.imageName = "cover_picture"
-        blankSpaceVideo2.channel = taylorChannel
-        blankSpaceVideo2.numberOfViews = 2034619822
-        
-        
-        return [blankSpaceVideo, badBloodVideo,blankSpaceVideo2]
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        fetchVideos()
+        fetchVideos() // Not implemented yet..
         
         navigationController?.navigationBar.isTranslucent = false
         
         let titleLabel =  UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
-        titleLabel.text = "Home"
+        titleLabel.text = "  Home"
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont.systemFont(ofSize: 20)
         navigationItem.titleView = titleLabel
         
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        
-        collectionView?.backgroundColor = UIColor.white
-        
-        collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        
-        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        
+       
+        setupCollectionView()
         setupMenuBar()
         setupNavBarButtons()
     }
     
+    func setupCollectionView() {
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .horizontal
+            flowLayout.minimumLineSpacing = 0
+        }
+        
+        collectionView?.backgroundColor = UIColor.white
+        collectionView?.isPagingEnabled = true
+
+        // Create one type of FeedCell for each category -> create a new swift class Trending that inehrite from FeedCell
+        // Each of this have different ways to populate data, aka use different rest endpoint
+        // And then inside cellForItemAt method check type.. and then return the correct type
+        collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        
+        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+
+    }
+    
     func fetchVideos() {
-        // TODO: Use alamofire and fetch the videos from the webpage http://brastad.pro:8080/api/videos
+        //  Use alamofire and fetch the videos from the webpage http://brastad.pro:8080/api/videos
         
     }
     
-    let menuBar: MenuBar = {
+    lazy var menuBar: MenuBar = {
         let mb: MenuBar = MenuBar()
+        mb.homeController = self
         return mb
     }()
     
@@ -113,8 +99,20 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func handleSearch() {
         print("Searching for nothing")
+        
     }
     
+    func scrollToMenuIndex(menuIndex: Int) {
+        let indexPath = IndexPath(row: menuIndex, section: 0)
+        collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        setTitle(index: menuIndex)
+    }
+    
+    private func setTitle(index: Int) {
+        if let titleLabel = navigationItem.titleView as? UILabel {
+            titleLabel.text = "  \(titles[index])"
+        }
+    }
     
     func handleMore() {
         self.settingsLauncher.showSettings()
@@ -131,26 +129,33 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos.count
+        return 4
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! VideoCell
-        cell.video = videos[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
+    
         
         return cell
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // Calculate the correct aspect ratio based on screen width
-        let height = (view.frame.width - 16 - 16) * 9 / 16
-        
-        // Adding 16 back because of margin and 68 for rest of the elements in the cell (profile pic, title and subtitle)
-        return CGSize(width: view.frame.width, height: height + 16 + 88)
+        // 15 based on the MenuBar height
+        return CGSize(width: view.frame.width, height: view.frame.height - 15)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        menuBar.horizontalBarLeftAnchorConstraint?.constant = (scrollView.contentOffset.x / 4)
+        print(scrollView.contentOffset.x)
+    }
+    
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let index = targetContentOffset.move().x / view.frame.width
+        let indexPath = IndexPath(row: Int(index), section: 0)
+        menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        setTitle(index: Int(index))
     }
     
     override func didReceiveMemoryWarning() {
