@@ -36,18 +36,14 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     
     override init() {
         super.init()
-        // Start something cool here
         collectionView.dataSource = self
         collectionView.delegate = self
-        //collectionView.register(SettingCell.self, forCellWithReuseIdentifier: cellId)
         
         let nib = UINib(nibName: "SettingCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: cellId)
     }
     
     func showSettings() {
-        print("User asking for more")
-        // Here we are going to show the menu
         
         if let window = UIApplication.shared.keyWindow {
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
@@ -110,7 +106,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
                 self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
             }
             
-        }, completion: {(completed: Bool) in
+        }, completion: {_ in
             if let actualSetting = setting {
                 if actualSetting.name != .cancel {
                     self.homeController?.showControllerForSetting(actualSetting)

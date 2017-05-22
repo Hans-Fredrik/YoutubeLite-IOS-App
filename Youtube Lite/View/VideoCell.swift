@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Foundation
+import Kingfisher
 
 class VideoCell: BaseCell {
     
@@ -15,11 +17,13 @@ class VideoCell: BaseCell {
             titleLabel.text = video?.title
             
             if let videoCoverImage = video?.imageName {
-                thumbnailImageView.image = UIImage(named: videoCoverImage)
+                let url = URL(string: videoCoverImage)
+                self.thumbnailImageView.kf.setImage(with: url)
             }
             
             if let profileImageName = video?.channel?.profileImageName {
-                userProfileImageView.image = UIImage(named: profileImageName)
+                let url = URL(string: profileImageName)
+                self.userProfileImageView.kf.setImage(with: url)
             }
             
             if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfViews {
@@ -44,15 +48,8 @@ class VideoCell: BaseCell {
         }
     }
     
-    func setupThumbnailImage() {
-        // At this place you should actually take the url and "fetch" the image
-        
-    }
-    
-    
     let thumbnailImageView: UIImageView = {
         let imageview = UIImageView()
-        imageview.backgroundColor = UIColor.blue
         imageview.image = #imageLiteral(resourceName: "cover_picture")
         imageview.contentMode = .scaleAspectFill
         imageview.clipsToBounds = true
@@ -94,6 +91,7 @@ class VideoCell: BaseCell {
     }()
     
     var titleLabelHeightConstraint: NSLayoutConstraint?
+    
     
     override func setupViews() {
         addSubview(thumbnailImageView)

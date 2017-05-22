@@ -6,9 +6,6 @@
 //  Copyright © 2017 Hans Fredrik Fuglerud Brastad. All rights reserved.
 //
 
-import UIKit
-
-
 struct Setting {
     
     let name: SettingName
@@ -20,7 +17,6 @@ struct Setting {
     }
     
 }
-
 
 extension Setting {
     enum SettingName: String {

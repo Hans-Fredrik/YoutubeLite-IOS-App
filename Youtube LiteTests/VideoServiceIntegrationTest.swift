@@ -21,20 +21,47 @@ class VideoServiceIntegrationTest: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let expectation = self.expectation(description: "asynchronous request")
+    func testAllVideos() {
+        let expectation = self.expectation(description: "Async request")
         
-        VideoService.getAllVideos { error, videos in
+        VideoService.fetch(endPoint: .allVideos, {error, videos in
             if let actualVideos = videos {
-                print(actualVideos)
+                print("allVideos: \(actualVideos)")
+                XCTAssertTrue(actualVideos.count > 0, "Expected more videos")
                 expectation.fulfill()
-            }else{
-                print("Tell user that there is some issuse \(error)")
             }
-        }
+        })
         
+        self.waitForExpectations(timeout: 10.0,  handler: nil)
+    }
+    
+    func testTrendingVideos() {
+        let expectation = self.expectation(description: "Async request")
+        
+        VideoService.fetch(endPoint: .trendingVideos, {error, videos in
+            if let actualVideos = videos {
+                print("trendingsVideos: \(actualVideos)")
+                
+                XCTAssertTrue(actualVideos.count > 0, "Expected more videos")
+                expectation.fulfill()
+            }
+        })
+        
+        self.waitForExpectations(timeout: 10.0,  handler: nil)
+    }
+    
+    func testSubscribedVideos() {
+        let expectation = self.expectation(description: "Async request")
+
+        VideoService.fetch(endPoint: .subscribedVideos, {error, videos in
+            if let actualVideos = videos {
+                print("subscribedVideos: \(actualVideos)")
+                
+                XCTAssertTrue(actualVideos.count > 0, "Expected more videos")
+                expectation.fulfill()
+            }
+        })
+
         self.waitForExpectations(timeout: 10.0,  handler: nil)
     }
     

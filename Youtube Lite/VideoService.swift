@@ -12,15 +12,14 @@ import Argo
 
 class VideoService {
     
-    static let baseUrl = "https://vapor-rest.herokuapp.com/api/videos"
+    static let baseUrl = "https://vapor-rest.herokuapp.com/api"
     
-    static func getAllVideos(_ onComplete: @escaping (Error?, [Video]?) -> Void) {
+    static func fetch(endPoint: Endpoint, _ onComplete: @escaping (Error?, [Video]?) -> Void) {
         var videos = [Video]()
         
-        Alamofire.request("\(baseUrl)").responseJSON { response in
-            
+        Alamofire.request(baseUrl + endPoint.rawValue).responseJSON { response in
             if let jsonArray = response.result.value as? [Any] {
-            
+                
                 for jsonElement in jsonArray {
                     let video: Video? = decode(jsonElement)
                     videos.append(video!)
@@ -28,11 +27,18 @@ class VideoService {
                 
                 onComplete(response.result.error, videos)
             }else {
-                print("That did not happen")
                 onComplete(response.result.error, nil)
             }
         }
     }
+}
+
+extension VideoService {
     
+    enum Endpoint: String {
+        case allVideos = "/videos"
+        case trendingVideos = "/videos/trending"
+        case subscribedVideos = "/videos/subscriptions"
+    }
     
 }

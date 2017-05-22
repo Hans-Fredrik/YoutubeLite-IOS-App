@@ -9,7 +9,13 @@
 import UIKit
 
 class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    let cellId: String = "cellId"
+    let imageNames = ["home", "trending", "subscriptions", "profile"]
     
+    var homeController: HomeController?
+    var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
+
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -18,11 +24,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         cv.delegate = self
         return cv
     }()
-    
-    let cellId: String = "cellId"
-    let imageNames = ["home", "trending", "subscriptions", "profile"]
-    
-    var homeController: HomeController?
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,7 +40,6 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         setupHorizontalBarView()
     }
     
-    var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
     
     func setupHorizontalBarView() {
         let horizontalBarView = UIView()
@@ -83,33 +84,4 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         fatalError("init(coder:) has not been implemented")
     }
     
-}
-
-class MenuCell: BaseCell {
-    
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    override var isSelected: Bool {
-        didSet {
-            if isSelected {
-                imageView.tintColor = UIColor.white
-            }else {
-                imageView.tintColor = UIColor.youtubeBlack
-            }
-        }
-    }
-    
-    override func setupViews() {
-        super.setupViews()
-        
-        addSubview(imageView)
-        addConstraintsWithFormat(format: "H:[v0(28)]", views: imageView)
-        addConstraintsWithFormat(format: "V:[v0(28)]", views: imageView)
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
-    }
-
 }

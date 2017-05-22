@@ -10,33 +10,8 @@ import UIKit
 
 class FeedCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    var videos: [Video] = {
-        var taylorChannel = Channel()
-        taylorChannel.name = "Taylor Swift EVO"
-        taylorChannel.profileImageName = "profile_picture"
-        
-        var blankSpaceVideo = Video()
-        blankSpaceVideo.title = "Taylor Swift - Blank Space"
-        blankSpaceVideo.imageName = "cover_picture"
-        blankSpaceVideo.channel = taylorChannel
-        blankSpaceVideo.numberOfViews = 2034619822
-        
-        var badBloodVideo = Video()
-        badBloodVideo.title = "Taylor Swift - Bad Blood Featuring Kendrick Lamar"
-        badBloodVideo.imageName = "cover_badblood"
-        badBloodVideo.channel = taylorChannel
-        badBloodVideo.numberOfViews = 1054880451
-        
-        var blankSpaceVideo2 = Video()
-        blankSpaceVideo2.title = "Taylor Swift - Blank Space"
-        blankSpaceVideo2.imageName = "cover_picture"
-        blankSpaceVideo2.channel = taylorChannel
-        blankSpaceVideo2.numberOfViews = 2034619822
-        
-        
-        return [blankSpaceVideo, badBloodVideo,blankSpaceVideo2]
-    }()
-    
+    let cellId = "cellId"
+    var videos = [Video]()
     
     lazy var collectionView: UICollectionView = {
         let layoyt = UICollectionViewFlowLayout()
@@ -45,10 +20,11 @@ class FeedCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
         return cv
     }()
     
-    let cellId = "cellId"
-    
+
     override func setupViews() {
         super.setupViews()
+        
+        fetchVideos()
         
         addSubview(collectionView)
         
@@ -58,6 +34,10 @@ class FeedCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(VideoCell.self, forCellWithReuseIdentifier: cellId)
+    }
+    
+    func fetchVideos() {
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -83,4 +63,7 @@ class FeedCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
         return 0
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Tapped")
+    }
 }

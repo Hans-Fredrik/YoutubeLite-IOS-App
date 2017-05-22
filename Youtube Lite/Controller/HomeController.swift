@@ -12,7 +12,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     let titles = ["Home", "Trending", "Subscriptions", "Account"]
     private let cellIdentifier = "cellId"
-    
+    private let homeFeedCellId = "homeFeedCellId"
+    private let trendingFeedCellId = "trendingFeedCellId"
+    private let subscriptionFeedCellId = "subscriptionFeedCellId"
     
     lazy var settingsLauncher: SettingsLauncher = {
         let launcher = SettingsLauncher()
@@ -21,9 +23,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }()
     
     
+    lazy var menuBar: MenuBar = {
+        let mb: MenuBar = MenuBar()
+        mb.homeController = self
+        return mb
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchVideos() // Not implemented yet..
         
         navigationController?.navigationBar.isTranslucent = false
         
@@ -49,26 +57,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.backgroundColor = UIColor.white
         collectionView?.isPagingEnabled = true
 
-        // Create one type of FeedCell for each category -> create a new swift class Trending that inehrite from FeedCell
-        // Each of this have different ways to populate data, aka use different rest endpoint
-        // And then inside cellForItemAt method check type.. and then return the correct type
         collectionView?.register(FeedCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView?.register(HomeFeedCell.self, forCellWithReuseIdentifier: homeFeedCellId)
+        collectionView?.register(TrendingFeedCell.self, forCellWithReuseIdentifier: trendingFeedCellId)
+        collectionView?.register(SubscriptionFeedCell.self, forCellWithReuseIdentifier: subscriptionFeedCellId)
         
         collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
 
     }
-    
-    func fetchVideos() {
-        //  Use alamofire and fetch the videos from the webpage http://brastad.pro:8080/api/videos
-        
-    }
-    
-    lazy var menuBar: MenuBar = {
-        let mb: MenuBar = MenuBar()
-        mb.homeController = self
-        return mb
-    }()
     
     private func setupMenuBar() {
         navigationController?.hidesBarsOnSwipe = true
@@ -133,8 +130,20 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
-    
+        let identifier: String
+        
+        switch indexPath.item {
+        case 0:
+            identifier = homeFeedCellId
+        case 1:
+            identifier = trendingFeedCellId
+        case 2:
+            identifier = subscriptionFeedCellId
+        default:
+            identifier = cellIdentifier
+        }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         
         return cell
     }
@@ -148,7 +157,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         menuBar.horizontalBarLeftAnchorConstraint?.constant = (scrollView.contentOffset.x / 4)
-        print(scrollView.contentOffset.x)
     }
     
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -161,5 +169,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+
     }
+
 }
