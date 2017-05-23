@@ -17,6 +17,7 @@ struct Video {
     var numberOfViews: Int64?
     var duration: Int?
     var channel: Channel?
+    var videoId: String?
     
 }
 
@@ -29,6 +30,7 @@ extension Video: Decodable {
             <*> json <| "number_of_views"
             <*> json <| "duration"
             <*> json <| "channel"
+            <*> json <| "video_id"
     }
         
 }

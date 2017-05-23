@@ -63,7 +63,10 @@ class FeedCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
         return 0
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Tapped")
+        let video = videos[indexPath.item]
+        let videoPlayer = VideoPlayer(video: video)
+        videoPlayer.showVideoPlayer()
     }
 }

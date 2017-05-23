@@ -6,9 +6,6 @@
 //  Copyright © 2017 Hans Fredrik Fuglerud Brastad. All rights reserved.
 //
 
-import Foundation
-
-
 class SubscriptionFeedCell: FeedCell {
     
     override func fetchVideos() {
