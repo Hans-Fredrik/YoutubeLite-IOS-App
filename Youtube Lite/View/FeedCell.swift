@@ -66,7 +66,7 @@ class FeedCell: BaseCell, UICollectionViewDataSource, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let video = videos[indexPath.item]
-        let videoPlayer = VideoPlayer(video: video)
+        let videoPlayer = VideoPlayer(video: video, keyWindow: UIApplication.shared.keyWindow!)
         videoPlayer.showVideoPlayer()
     }
 }

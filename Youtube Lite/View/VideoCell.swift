@@ -50,7 +50,6 @@ class VideoCell: BaseCell {
     
     let thumbnailImageView: UIImageView = {
         let imageview = UIImageView()
-        imageview.image = #imageLiteral(resourceName: "cover_picture")
         imageview.contentMode = .scaleAspectFill
         imageview.clipsToBounds = true
         return imageview
@@ -59,7 +58,6 @@ class VideoCell: BaseCell {
     let userProfileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.gray
-        imageView.image = #imageLiteral(resourceName: "profile_picture")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true
@@ -76,7 +74,6 @@ class VideoCell: BaseCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Taylow Swift - Blank Space"
         label.numberOfLines = 2
         return label
     }()
@@ -84,7 +81,6 @@ class VideoCell: BaseCell {
     let subtitleTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "TaylorSwiftVEVO - 1,604,684,607 view ● 2 years ago"
         textView.textContainerInset = UIEdgeInsetsMake(0, -4, 0, 0)
         textView.textColor = UIColor.lightGray
         return textView

@@ -26,7 +26,7 @@ class VideoServiceIntegrationTest: XCTestCase {
         
         VideoService.fetch(endPoint: .allVideos, {error, videos in
             if let actualVideos = videos {
-                print("allVideos: \(actualVideos)")
+        
                 XCTAssertTrue(actualVideos.count > 0, "Expected more videos")
                 expectation.fulfill()
             }
@@ -40,7 +40,6 @@ class VideoServiceIntegrationTest: XCTestCase {
         
         VideoService.fetch(endPoint: .trendingVideos, {error, videos in
             if let actualVideos = videos {
-                print("trendingsVideos: \(actualVideos)")
                 
                 XCTAssertTrue(actualVideos.count > 0, "Expected more videos")
                 expectation.fulfill()
@@ -55,8 +54,7 @@ class VideoServiceIntegrationTest: XCTestCase {
 
         VideoService.fetch(endPoint: .subscribedVideos, {error, videos in
             if let actualVideos = videos {
-                print("subscribedVideos: \(actualVideos)")
-                
+        
                 XCTAssertTrue(actualVideos.count > 0, "Expected more videos")
                 expectation.fulfill()
             }

@@ -20,4 +20,5 @@ class SubscriptionFeedCell: FeedCell {
         
         })
     }
+    
 }
