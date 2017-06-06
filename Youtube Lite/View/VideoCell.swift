@@ -70,7 +70,6 @@ class VideoCell: BaseCell {
         return view
     }()
     
-    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +86,6 @@ class VideoCell: BaseCell {
     }()
     
     var titleLabelHeightConstraint: NSLayoutConstraint?
-    
     
     override func setupViews() {
         addSubview(thumbnailImageView)
