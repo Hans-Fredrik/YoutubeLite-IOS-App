@@ -23,8 +23,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }()
     
 
-    lazy var menuBar: MenuBar = {   
-        let mb: MenuBar = MenuBar()
+    lazy var menuBar: MenuBarController = {
+        let mb: MenuBarController = MenuBarController()
         mb.homeController = self
         return mb
     }()

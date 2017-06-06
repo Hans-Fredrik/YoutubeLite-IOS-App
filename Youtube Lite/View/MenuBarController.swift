@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class MenuBarController: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     let cellId: String = "cellId"
     let imageNames = ["home", "trending", "subscriptions", "profile"]
