@@ -29,7 +29,6 @@ class VideoPlayer: NSObject {
             
             // 16 * 9 is the aspect ratio for all HD videos
             let height = keyWindow.frame.width * 9 / 16
-            
             let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
             let videoPlayerFrame = CGRect(x: 0, y: statusBarHeight, width: keyWindow.frame.width, height: height)
             
@@ -38,8 +37,7 @@ class VideoPlayer: NSObject {
             detailedVideoView.addSubview(youtubeVideoPlayer!)
             
             keyWindow.addSubview(detailedVideoView)
-            
-            
+        
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.detailedVideoView.frame = self.keyWindow.frame
                 

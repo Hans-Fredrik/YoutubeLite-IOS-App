@@ -12,16 +12,16 @@ import UIKit
 
 class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    let blackView = UIView()
     let cellId = "cellId"
     let cellHeight: CGFloat = 50
+    let backgroundView = UIView()
     var homeController: HomeController?
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.white
-        return cv
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.white
+        return collectionView
     }()
     
     
@@ -46,29 +46,24 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     func showSettings() {
         
         if let window = UIApplication.shared.keyWindow {
-            blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+            backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+            backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDissmiss)))
             
-            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDissmiss)))
-            
-            window.addSubview(blackView)
+            window.addSubview(backgroundView)
             window.addSubview(collectionView)
             
             let height = CGFloat(settings.count) * cellHeight
             let y = window.frame.height - height
             
             collectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: 200)
-            
-            blackView.frame = window.frame
-            blackView.alpha = 0
+            backgroundView.frame = window.frame
+            backgroundView.alpha = 0
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.blackView.alpha = 1
+                self.backgroundView.alpha = 1
                 self.collectionView.frame = CGRect(x: 0, y: y, width: window.frame.height, height: height)
             }, completion: nil)
-
         }
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -100,7 +95,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     
     private func dissmiss(setting: Setting?) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.blackView.alpha = 0
+            self.backgroundView.alpha = 0
             
             if let window = UIApplication.shared.keyWindow {
                 self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
@@ -112,7 +107,6 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
                     self.homeController?.showControllerForSetting(actualSetting)
                 }
             }
-            
         })
     }
     

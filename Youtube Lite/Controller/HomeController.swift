@@ -10,7 +10,7 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    let titles = ["Home", "Trending", "Subscriptions", "Account"]
+    private let titles = ["Home", "Trending", "Subscriptions", "Account"]
     private let cellIdentifier = "cellId"
     private let homeFeedCellId = "homeFeedCellId"
     private let trendingFeedCellId = "trendingFeedCellId"
@@ -22,7 +22,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return launcher
     }()
     
-    
+
     lazy var menuBar: MenuBar = {   
         let mb: MenuBar = MenuBar()
         mb.homeController = self

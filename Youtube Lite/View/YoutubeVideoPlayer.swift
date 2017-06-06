@@ -26,9 +26,7 @@ class YoutubeVideoPlayer: UIWebView {
         let embeddedHtml = generateYoutubeHtmlLink(width: frame.size.width, height: frame.size.height, videoId: videoId)
         loadHTMLString(embeddedHtml, baseURL: nil)
         
-        let panRecognizer = UIPanGestureRecognizer(target:self, action:#selector(self.detectPan(_:)))
-        
-        self.gestureRecognizers = [panRecognizer]
+        self.gestureRecognizers = [UIPanGestureRecognizer(target:self, action:#selector(self.detectPan(_:)))]
     }
     
 

@@ -12,6 +12,12 @@ import Argo
 
 class VideoService {
     
+    enum Endpoint: String {
+        case allVideos = "/videos"
+        case trendingVideos = "/videos/trending"
+        case subscribedVideos = "/videos/subscriptions"
+    }
+
     static let baseUrl = "https://vapor-rest.herokuapp.com/api"
     
     static func fetch(endPoint: Endpoint, _ onComplete: @escaping (Error?, [Video]?) -> Void) {
@@ -35,10 +41,6 @@ class VideoService {
 
 extension VideoService {
     
-    enum Endpoint: String {
-        case allVideos = "/videos"
-        case trendingVideos = "/videos/trending"
-        case subscribedVideos = "/videos/subscriptions"
-    }
+
     
 }
